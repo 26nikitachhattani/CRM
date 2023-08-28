@@ -19,7 +19,7 @@
         <v-btn v-if="!alert" dark @click="alert = true"> Reset Alert </v-btn>
       </div>
     </div>
-    <v-card height="600">
+    <v-card height="700">
       <v-card-text>
         <div class="my-2 sub-header">Title <span>Required</span></div>
         <v-text-field
@@ -40,18 +40,22 @@
         <div class="my-1 sub-header">Discussion <span>Required</span></div>
         <quill-editor id="editor-container" height="400"></quill-editor>
       </v-card-text>
-      <v-card-action>
-        <v-btn>Close</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn></v-btn>
-      </v-card-action>
+       <v-card-actions class="my-10">
+      <v-btn
+        outlined
+        rounded
+        text
+      >
+        Button
+      </v-btn>
+    </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
 import QuillEditor from "./common/QuillEditor.vue";
-import { quillEditor } from "vue-quill-editor";
+//import { quillEditor } from "vue-quill-editor";
 export default {
   data() {
     return {
@@ -60,14 +64,14 @@ export default {
   },
   components: {
     QuillEditor,
-    quillEditor,
+    //quillEditor,
   },
 };
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
 #editor-container {
-  height: 150px; /* Set the desired height here */
+  height: 100px; /* Set the desired height here */
 }
 .info-sheet {
   background: #e5e5e5 0% 0% no-repeat padding-box;

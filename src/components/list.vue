@@ -1,139 +1,166 @@
 <template>
- <div>
-  <v-container >
-    <v-row justify="center">
-        <v-col cols="12">
-        <v-card
-          v-for="(message, i) in messages"
-          :key="i"
-          hide-actions
-          class="my-2"
+  <div>
+    <v-container>
+      <div class="my-2 d-flex">
+        <v-btn
+          style="border: 1px solid #e5e5e5"
           elevation="0"
-          style="border: 0.5px solid #F7B971"
+          class="white btn-class pa-4 text-center rounded-r-0 rounded-l-xl"
         >
-          <v-card-text>
-
-            <v-row
-              align="center"
-              class="spacer"
-              no-gutters
-            >
-              <!-- <v-col
-                cols="4"
-                sm="2"
-                md="1"
-              >
-                <v-avatar
-                  size="36px"
-                >
-                  <img
-                    v-if="message.avatar"
-                    alt="Avatar"
-                    src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-                  >
-                  <v-icon
-                    v-else
-                    :color="message.color"
-                    
-                  >{{message.icon}}</v-icon>
-                </v-avatar>
-              </v-col> -->
-
-              <v-col
-                class="hidden-xs-only"
-                sm="5"
-                md="5"
-              >
-                <strong v-html="message.name"></strong>
-                <span
-                  v-if="message.total"
-                  class="grey--text"
-                >
-                  &nbsp;({{ message.total }})
-                </span>
+          .r-xl
+        </v-btn>
+        <v-btn
+          style="border: 1px solid #e5e5e5"
+          elevation="0"
+          class="white btn-class pa-4 text-center rounded-l-0 rounded-r-xl"
+        >
+          .r-xl
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon-and-text elevation="0" class="dis-btn primary" to="/create"
+          ><v-icon>mdi-plus</v-icon>Start a Discussion</v-btn
+        >
+      </div>
+      <v-row justify="center" class="justify-space-between">
+        <v-col cols="12" v-for="(message, i) in messages" :key="i">
+          <v-card
+            class="my-2 card-box"
+            elevation="0"
+            style="border: 0.5px solid #f7b971"
+          >
+            <v-card-text>
+              <v-row align="center" class="spacer" no-gutters>
+                <v-col class="" sm="12" md="5">
                   <div>
                     <strong v-html="message.title"></strong>
+                    <div>{{ message.excerpt }}</div>
                   </div>
-              </v-col>
+                </v-col>
+                <v-col cols="1"></v-col>
+                <v-col class="" cols="5" sm="3" md="3">
+                  <div class="text-center d-flex">
+                    <div>
+                      <div class="replies-count-text">0 replies</div>
+                      <div class="views-text">{{ message.view }}</div>
+                    </div>
+                    <v-avatar class="mx-2" size="40px">
+                      <img
+                        alt="Avatar"
+                        src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
+                      />
+                    </v-avatar>
+                    <div>
+                      <div class="replies-count-text">0 replies</div>
+                      <div class="views-text">April 3, 2022</div>
+                    </div>
+                  </div>
+                </v-col>
 
-              <v-col
-                class="text-no-wrap"
-                cols="5"
-                sm="3"
-              >
-                <v-chip
-                  v-if="message.new"
-                  :color="`${message.color} lighten-4`"
-                  class="ml-0 mr-2 black--text"
-                  label
-                  small
+                <v-col
+                  md="2"
+                  v-if="message.excerpt"
+                  class="grey--text text-right text-truncate hidden-sm-and-down"
                 >
-                  {{ message.new }} new
-                </v-chip>
-                <strong v-html="message.title"></strong>
-              </v-col>
-
-              <v-col
-                v-if="message.excerpt"
-                class="grey--text text-truncate hidden-sm-and-down"
-              >
-                &mdash;
-                {{ message.excerpt }}
-              </v-col>
-            </v-row>
-          </v-card-text>
-         
-        </v-card>
+                  <div class="text-right">
+                    <v-icon class="mx-2">mdi-star</v-icon>
+                    <v-icon class="mx-2">mdi-checkbox-marked-circle</v-icon>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
         </v-col>
-    </v-row>
-  </v-container>
- </div>
+      </v-row>
+      <v-pagination v-model="page" class="my-4" left :length="4"></v-pagination>
+    </v-container>
+  </div>
 </template>
  
 <script>
-  export default {
-    name: 'cardList',
-    data: () => ({
-      messages: [
-        {
-          avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-          name: 'John Leider',
-          title: 'Welcome to Vuetify!',
-          excerpt: 'Thank you for joining our community...',
-        },
-        {
-          color: 'red',
-          icon: 'mdi-account-multiple',
-          name: 'Social',
-          new: 1,
-          total: 3,
-          title: 'Twitter',
-        },
-        {
-          color: 'teal',
-          icon: 'mdi-tag',
-          name: 'Promos',
-          new: 2,
-          total: 4,
-          title: 'Shop your way',
-          exceprt: 'New deals available, Join Today',
-        },
-         {
-          avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-          name: 'John Leider',
-          title: 'Welcome to Vuetify!',
-          excerpt: 'Thank you for joining our community...',
-        },
-        {
-          color: 'red',
-          icon: 'mdi-account-multiple',
-          name: 'Social',
-          new: 1,
-          total: 3,
-          title: 'Twitter',
-        },
-      ],
-      lorem: 'Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum.',
-    }),
-  }
+export default {
+  name: "cardList",
+  data: () => ({
+    page: 1,
+    messages: [
+      {
+        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        name: "James S. Booth",
+        total: 3,
+        view: "10.3k views",
+        title: "Fuel user engagement with seriously powerful in-app chats",
+        excerpt:
+          "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
+      },
+      {
+        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        name: "Social",
+        new: 1,
+        total: 3,
+        view: "10.3k views",
+        title: "Twitter",
+        excerpt:
+          "Hello, Does anyone have a work around for locking the page titles in the navigation bar when viewing the website on a mobile device?",
+      },
+      {
+        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        name: "Promos",
+        new: 2,
+        total: 4,
+        view: "10.3k views",
+        title: "Shop your way",
+        excerpt:
+          "Hello, Does anyone have a work around for locking the page titles in the navigation bar when viewing the website on a mobile device?",
+      },
+      {
+        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
+        name: "John Leider",
+        total: 3,
+        view: "10.3k views",
+        title: "Fuel user engagement with seriously powerful in-app chats",
+        excerpt:
+          "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
+      },
+      {
+        color: "red",
+        icon: "mdi-account-multiple",
+        name: "Social",
+        new: 1,
+        total: 3,
+        title: "Twitter",
+        view: "10.3k views",
+        excerpt:
+          "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
+      },
+    ],
+  }),
+};
 </script>
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+.replies-count-text {
+  text-align: left;
+  font: normal normal medium 13px/18px Open Sans;
+  letter-spacing: 0px;
+  color: #304655;
+  opacity: 1;
+}
+.views-text {
+  font: normal normal medium 13px/18px Open Sans;
+  letter-spacing: 0px;
+  color: #82888d;
+  opacity: 1;
+}
+.btn-class {
+  border: 0.5px solid #f5f5f5;
+}
+.dis-btn {
+  font: normal normal 600 15px/20px Open Sans;
+  letter-spacing: 0px;
+  color: #ffffff;
+  text-transform: capitalize;
+  opacity: 1;
+}
+.v-col >>> .card-box :hover {
+  background: #49a97233 0% 0% no-repeat padding-box;
+}
+</style>
