@@ -7,14 +7,14 @@
           elevation="0"
           class="white btn-class pa-4 text-center rounded-r-0 rounded-l-xl"
         >
-          .r-xl
+          Activity
         </v-btn>
         <v-btn
           style="border: 1px solid #e5e5e5"
           elevation="0"
           class="white btn-class pa-4 text-center rounded-l-0 rounded-r-xl"
         >
-          .r-xl
+          Status
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn icon-and-text elevation="0" class="dis-btn primary" to="/create"
@@ -22,8 +22,9 @@
         >
       </div>
       <v-row justify="center" class="justify-space-between">
-        <v-col cols="12" v-for="(message, i) in messages" :key="i">
+        <v-col cols="12" >
           <v-card
+           v-for="(message, i) in messages" :key="i"
             class="my-2 card-box"
             elevation="0"
             style="border: 0.5px solid #f7b971"
@@ -33,7 +34,7 @@
                 <v-col class="" sm="12" md="5">
                   <div>
                     <strong v-html="message.title"></strong>
-                    <div>{{ message.excerpt }}</div>
+                    <div>{{ message.description }}</div>
                   </div>
                 </v-col>
                 <v-col cols="1"></v-col>
@@ -58,7 +59,7 @@
 
                 <v-col
                   md="2"
-                  v-if="message.excerpt"
+                  v-if="message.description"
                   class="grey--text text-right text-truncate hidden-sm-and-down"
                 >
                   <div class="text-right">
@@ -88,7 +89,7 @@ export default {
         total: 3,
         view: "10.3k views",
         title: "Fuel user engagement with seriously powerful in-app chats",
-        excerpt:
+        description:
           "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
       },
       {
@@ -98,7 +99,7 @@ export default {
         total: 3,
         view: "10.3k views",
         title: "Twitter",
-        excerpt:
+        description:
           "Hello, Does anyone have a work around for locking the page titles in the navigation bar when viewing the website on a mobile device?",
       },
       {
@@ -108,7 +109,7 @@ export default {
         total: 4,
         view: "10.3k views",
         title: "Shop your way",
-        excerpt:
+        description:
           "Hello, Does anyone have a work around for locking the page titles in the navigation bar when viewing the website on a mobile device?",
       },
       {
@@ -117,7 +118,7 @@ export default {
         total: 3,
         view: "10.3k views",
         title: "Fuel user engagement with seriously powerful in-app chats",
-        excerpt:
+        description:
           "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
       },
       {
@@ -128,7 +129,7 @@ export default {
         total: 3,
         title: "Twitter",
         view: "10.3k views",
-        excerpt:
+        description:
           "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
       },
     ],
@@ -160,7 +161,14 @@ export default {
   text-transform: capitalize;
   opacity: 1;
 }
-.v-col >>> .card-box :hover {
-  background: #49a97233 0% 0% no-repeat padding-box;
+.v-card--link:hover {
+  background: blue;
 }
+
+.v-card--link:hover::before {
+  opacity: 0;
+}
+/* .v-col >>> .card-box :hover {
+  background: #49a97233 0% 0% no-repeat padding-box;
+} */
 </style>

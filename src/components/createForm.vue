@@ -12,67 +12,85 @@
         elevation="0 "
         icon="mdi-twitter"
       >
-      Forums Forum is a peer-to-peer community for anyone building their website and online business.
-        </v-alert>
+        Forums Forum is a peer-to-peer community for anyone building their
+        website and online business.
+      </v-alert>
 
       <div class="text-center">
         <v-btn v-if="!alert" dark @click="alert = true"> Reset Alert </v-btn>
       </div>
     </div>
     <v-card height="700">
-      <v-card-text>
+      <v-card-text class="my-3">
         <div class="my-2 sub-header">Title <span>Required</span></div>
         <v-text-field
-          label="Outlined"
+          v-model="title"
+          label="title"
           prepend-inner-icon="mdi-plus"
           class="mt-1"
           outlined
-          readonly
         ></v-text-field>
         <div class="my-2 sub-header">Tags <span>Required</span></div>
         <v-text-field
-          label="Outlined"
+          v-model="tag"
+          label="Tag"
           prepend-inner-icon="mdi-plus"
           class="mt-1"
           outlined
-          readonly
         ></v-text-field>
         <div class="my-1 sub-header">Discussion <span>Required</span></div>
-        <quill-editor id="editor-container" height="400"></quill-editor>
+        <quillEditor hide-details v-model="description" id="editor-container"  />
       </v-card-text>
-       <v-card-actions class="my-10">
-      <v-btn
-        outlined
-        rounded
-        text
-      >
-        Button
-      </v-btn>
-    </v-card-actions>
+      <v-card-actions class="my-10">
+        <v-btn outlined rounded text @click="submit"> Button </v-btn>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
-import QuillEditor from "./common/QuillEditor.vue";
+//import QuillEditor from "./common/QuillEditor.vue";
+import { quillEditor } from "vue-quill-editor";
+import "quill/dist/quill.snow.css";
 //import { quillEditor } from "vue-quill-editor";
 export default {
   data() {
     return {
-       alert: true,
+      alert: true,
+      title: "",
+      tag: "",
+      description: "",
+      topics: [],
     };
   },
+  watch: {
+  },
+  methods: {
+    submit() {
+      if (localStorage.getItem("topics") !== null) {
+        this.topics = JSON.parse(localStorage.getItem("topics"));
+      } else {
+        this.topics = []; // Initialize topics as an empty array if it doesn't exist in localStorage
+      }
+
+      this.topics.push({
+        title: this.title,
+        tag: this.tag,
+        description: this.description,
+      });
+
+      // Save the updated topics array back to localStorage
+      localStorage.setItem("topics", JSON.stringify(this.topics));
+    },
+  },
   components: {
-    QuillEditor,
+    quillEditor,
     //quillEditor,
   },
 };
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
-#editor-container {
-  height: 100px; /* Set the desired height here */
-}
 .info-sheet {
   background: #e5e5e5 0% 0% no-repeat padding-box;
   border: 1px solid #dddddd;

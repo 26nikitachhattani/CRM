@@ -5,7 +5,7 @@
       color="white"
       elevation="0"
     >
-      <div class="d-flex align-center">
+      <div class="d-flex align-center" >
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
@@ -24,7 +24,8 @@
           width="100"
         />
       </div>
-
+      <v-spacer></v-spacer>
+      <v-text-field class="my-2" label="Search" prepend-inner-icon="mdi-magnify" hide-details outlined dense></v-text-field>
       <v-spacer></v-spacer>
 
       <v-btn

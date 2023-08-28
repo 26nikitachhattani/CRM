@@ -12,11 +12,9 @@
 <script>
 import Chats from "../components/chatBox/chats";
 export default {
-  name: "ChatsView",
+  name: "RepliesView",
   components: {
     Chats,
-    // list,
-    // discussion
   },
 };
 </script>

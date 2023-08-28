@@ -2,40 +2,40 @@
   <div>
     <v-card
       class=""
-      style="
-        background: linear-gradient(270deg, #5f88f7 0%, #2991ea 100%) 
-      "
+      style="background: linear-gradient(270deg, #5f88f7 0%, #2991ea 100%)"
       dark
+      elevation="0"
       max-width="400"
     >
       <v-card-text class="heading-text">
-        Circle Day: Build <br/> Your Toolkit
+        Circle Day: Build <br />
+        Your Toolkit
       </v-card-text>
 
       <v-card-actions>
         <v-list-item class="grow">
-          <v-list-item-avatar color="grey darken-3">
+          <!-- <v-list-item-avatar color="grey darken-3">
             <v-img
               class="elevation-6"
               alt=""
               src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
             ></v-img>
-          </v-list-item-avatar>
+          </v-list-item-avatar> -->
 
           <v-list-item-content>
-            <v-list-item-title>Evan You</v-list-item-title>
+            <v-list-item-title>50 days away</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-card-actions>
     </v-card>
-    <div>Popular Contributors</div>
+    <div class="my-3">Popular Contributors</div>
     <v-row class="text-center my-0">
-      <v-col cols="4" class="" v-for="i in items" :key="i">
-        <div>
+      <v-col cols="4" class="justify-center" v-for="i in items" :key="i">
+        <div class="text-center">
           <v-avatar color="" size="55">
             <v-img class="elevation-6" alt="" :src="i.avatar"></v-img>
           </v-avatar>
-          <div class="name-text">jamessbooth</div>
+          <div class="mx-auto name-text">james</div>
         </div>
       </v-col>
     </v-row>
@@ -103,7 +103,10 @@ export default {
   color: #304655;
   opacity: 1;
 }
-.heading-text{
-  
+.heading-text {
+  font: normal normal bold 28px/47px Open Sans;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
 }
 </style>
