@@ -22,7 +22,7 @@
     </v-card>
     <div class="my-3 text-heading">Popular Contributors</div>
     <v-row class="text-center my-0">
-      <v-col cols="4" class="justify-center" v-for="i in items" :key="i">
+      <v-col cols="4" class="justify-center" v-for="i in items" :key="i.name">
         <div class="text-center">
           <v-avatar color="" size="55">
             <v-img class="elevation-6" alt="" :src="i.avatar"></v-img>

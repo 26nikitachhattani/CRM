@@ -21,7 +21,7 @@ const routes = [
     component: () => import('../views/createTodo.vue')
   },
   {
-    path: '/topic',
+    path: '/topic/:id',
     name: 'TopicView',
     component: () => import('../views/topicView.vue')
   }

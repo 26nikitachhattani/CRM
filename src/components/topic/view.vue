@@ -4,7 +4,7 @@
       <v-sheet elevation="0" class="py-4 px-8">
         <div>
           <h3 class="title">
-            Fuel user engagement with seriously powerful in-app chats
+            {{this.topics[this.$route.params.id].title}}
           </h3>
         </div>
         <v-divider class="my-2"></v-divider>
@@ -15,7 +15,7 @@
               src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
             />
           </v-avatar>
-          <div class="mx-2">April 3, 2022</div>
+          <div class="mx-2">{{this.topics[this.$route.params.id].date}}</div>
           <div>0 replies</div>
           <v-spacer></v-spacer>
         </div>
@@ -91,6 +91,7 @@ export default {
   name: "cardList",
   data: () => ({
     page: 1,
+    topics: [],
     messages: [
       {
         avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
@@ -144,6 +145,10 @@ export default {
     ],
   }),
   methods: {},
+  created(){
+   this.topics = JSON.parse(localStorage.getItem("topics"));
+
+  }
 };
 </script>
 <style scoped>

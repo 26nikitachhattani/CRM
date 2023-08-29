@@ -15,12 +15,8 @@
         Forums Forum is a peer-to-peer community for anyone building their
         website and online business.
       </v-alert>
-
-      <div class="text-center">
-        <v-btn v-if="!alert" dark @click="alert = true"> Reset Alert </v-btn>
-      </div>
     </div>
-    <v-form>
+    <v-form ref="form">
       <v-card height="700">
         <v-card-text class="my-3">
           <div class="my-2 sub-header">Title <span>Required</span></div>
@@ -28,33 +24,45 @@
             v-model="title"
             label="Title"
             class="mt-1"
+            :rules="[rules.required]"
             outlined
           ></v-text-field>
           <div class="my-2 sub-header">Tags <span>Required</span></div>
-         <v-combobox
+          <v-combobox
             v-model="select"
             label="Tag"
+            outlined
             prepend-inner-icon="mdi-plus"
             multiple
-            class="mt-1"
-            outlined
-          ></v-combobox>
+            :rules="[rules.requiredArray]"
+            :items="items"
+            :search-input.sync="search"
+            hide-selected
+            hint="Maximum of 5 tags"
+            persistent-hint
+            small-chips
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    No results matching "<strong>{{ search }}</strong
+                    >". Press <kbd>enter</kbd> to create a new one
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-combobox>
           <div class="my-1 sub-header">Discussion <span>Required</span></div>
           <quillEditor
             hide-details
+            :rules="[rules.required]"
             v-model="description"
             id="editor-container"
           />
         </v-card-text>
         <v-card-actions class="px-7 my-10">
-          <v-btn
-            outlined
-            dark
-            class="submit-btn primary"
-            rounded
-            text
-            to="/"
-          >
+          <v-btn outlined dark class="submit-btn primary" rounded text to="/">
             Close
           </v-btn>
           <v-spacer></v-spacer>
@@ -71,6 +79,23 @@
         </v-card-actions>
       </v-card>
     </v-form>
+    <v-snackbar
+      v-model="snackbar"
+      color="red"
+    >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -78,21 +103,34 @@
 //import QuillEditor from "./common/QuillEditor.vue";
 import { quillEditor } from "vue-quill-editor";
 import "quill/dist/quill.snow.css";
-//import { quillEditor } from "vue-quill-editor";
 export default {
-  data() {
-    return {
-      alert: true,
-      title: "",
-      tag: "",
-      description: "",
-      topics: [],
-      select: ['tag',],
-    };
+  data: () => ({
+    items: ["Gaming", "Programming", "Vue", "Vuetify"],
+    model: ["Vuetify"],
+    search: null,
+    alert: true,
+    title: "",
+    tag: "",
+    description: "",
+    topics: [],
+    date: new Date().toLocaleDateString(),
+    rules: {
+      required: (value) => !!value || "Required.",
+      requiredArray: (value) => !!value.length || "Required.",
+    },
+     snackbar: false,
+    text: `please fill data`,
+  }),
+  watch: {
+    model(val) {
+      if (val.length > 5) {
+        this.$nextTick(() => this.model.pop());
+      }
+    },
   },
-  watch: {},
   methods: {
     submit() {
+      if(this.$refs.form.validate() && this.description.length !== 0){
       if (localStorage.getItem("topics") !== null) {
         this.topics = JSON.parse(localStorage.getItem("topics"));
       } else {
@@ -101,13 +139,18 @@ export default {
 
       this.topics.push({
         title: this.title,
-        tag: this.tag,
+        tag: this.select,
         description: this.description,
+        date: this.date,
       });
 
       // Save the updated topics array back to localStorage
       localStorage.setItem("topics", JSON.stringify(this.topics));
       this.$router.push("/");
+      }
+      else{
+        this.snackbar = true
+      }
     },
   },
   components: {

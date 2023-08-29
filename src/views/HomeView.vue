@@ -5,9 +5,8 @@
       <div class="sub-text my-1 mx-14">
         Learn how to make the most of your Forumx Forum experience.
       </div>
-    
-      <v-row class="py-7 mx-14">
-        <v-col cols="9" class="mx-0 pa-0">
+      <v-row class="py-7 mx-md-14">
+        <v-col md="9" sm="12" class="mx-0 pa-0">
           <list />
         </v-col>
         <v-col class="mx-1 pa-0">
