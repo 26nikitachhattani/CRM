@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- <hello-world /> -->
-
     <v-container fluid>
       <div class="heading-text mx-14">Forumx Resources</div>
       <div class="sub-text my-1 mx-14">
@@ -21,13 +19,11 @@
 </template>
 
 <script>
-// import HelloWorld from "../components/HelloWorld";
 import list from "../components/list";
-import discussion from "../components/sideCard";
+import discussion from "../components/common/sideCard";
 export default {
   name: "HomeView",
   components: {
-    // HelloWorld,
     list,
     discussion,
   },

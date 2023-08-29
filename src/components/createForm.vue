@@ -10,7 +10,7 @@
         dismissible
         color="white"
         elevation="0 "
-        icon="mdi-twitter"
+        icon="mdi-bell"
       >
         Forums Forum is a peer-to-peer community for anyone building their
         website and online business.
@@ -20,31 +20,57 @@
         <v-btn v-if="!alert" dark @click="alert = true"> Reset Alert </v-btn>
       </div>
     </div>
-    <v-card height="700">
-      <v-card-text class="my-3">
-        <div class="my-2 sub-header">Title <span>Required</span></div>
-        <v-text-field
-          v-model="title"
-          label="title"
-          prepend-inner-icon="mdi-plus"
-          class="mt-1"
-          outlined
-        ></v-text-field>
-        <div class="my-2 sub-header">Tags <span>Required</span></div>
-        <v-text-field
-          v-model="tag"
-          label="Tag"
-          prepend-inner-icon="mdi-plus"
-          class="mt-1"
-          outlined
-        ></v-text-field>
-        <div class="my-1 sub-header">Discussion <span>Required</span></div>
-        <quillEditor hide-details v-model="description" id="editor-container"  />
-      </v-card-text>
-      <v-card-actions class="my-10">
-        <v-btn outlined rounded text @click="submit"> Button </v-btn>
-      </v-card-actions>
-    </v-card>
+    <v-form>
+      <v-card height="700">
+        <v-card-text class="my-3">
+          <div class="my-2 sub-header">Title <span>Required</span></div>
+          <v-text-field
+            v-model="title"
+            label="Title"
+            class="mt-1"
+            outlined
+          ></v-text-field>
+          <div class="my-2 sub-header">Tags <span>Required</span></div>
+         <v-combobox
+            v-model="select"
+            label="Tag"
+            prepend-inner-icon="mdi-plus"
+            multiple
+            class="mt-1"
+            outlined
+          ></v-combobox>
+          <div class="my-1 sub-header">Discussion <span>Required</span></div>
+          <quillEditor
+            hide-details
+            v-model="description"
+            id="editor-container"
+          />
+        </v-card-text>
+        <v-card-actions class="px-7 my-10">
+          <v-btn
+            outlined
+            dark
+            class="submit-btn primary"
+            rounded
+            text
+            to="/"
+          >
+            Close
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            outlined
+            dark
+            class="submit-btn primary"
+            rounded
+            text
+            @click="submit"
+          >
+            Submit Topic
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-form>
   </div>
 </template>
 
@@ -61,10 +87,10 @@ export default {
       tag: "",
       description: "",
       topics: [],
+      select: ['tag',],
     };
   },
-  watch: {
-  },
+  watch: {},
   methods: {
     submit() {
       if (localStorage.getItem("topics") !== null) {
@@ -81,6 +107,7 @@ export default {
 
       // Save the updated topics array back to localStorage
       localStorage.setItem("topics", JSON.stringify(this.topics));
+      this.$router.push("/");
     },
   },
   components: {
@@ -120,5 +147,11 @@ export default {
   color: #b72828;
   text-transform: uppercase;
   opacity: 1;
+}
+.submit-btn {
+  background: #2991ea 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  opacity: 1;
+  text-transform: capitalize;
 }
 </style>

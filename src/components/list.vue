@@ -22,9 +22,10 @@
         >
       </div>
       <v-row justify="center" class="justify-space-between">
-        <v-col cols="12" >
+        <v-col cols="12">
           <v-card
-           v-for="(message, i) in messages" :key="i"
+            v-for="(message, i) in messages"
+            :key="i"
             class="my-2 card-box"
             elevation="0"
             style="border: 0.5px solid #f7b971"
@@ -34,7 +35,7 @@
                 <v-col class="" sm="12" md="5">
                   <div>
                     <strong v-html="message.title"></strong>
-                    <div>{{ message.description }}</div>
+                    <div v-html="message.description" />
                   </div>
                 </v-col>
                 <v-col cols="1"></v-col>
@@ -81,59 +82,22 @@
 export default {
   name: "cardList",
   data: () => ({
+    // date: format(parseISO(new Date().toISOString()), 'yyyy-MM-dd'),
     page: 1,
-    messages: [
-      {
-        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-        name: "James S. Booth",
-        total: 3,
-        view: "10.3k views",
-        title: "Fuel user engagement with seriously powerful in-app chats",
-        description:
-          "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
-      },
-      {
-        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-        name: "Social",
-        new: 1,
-        total: 3,
-        view: "10.3k views",
-        title: "Twitter",
-        description:
-          "Hello, Does anyone have a work around for locking the page titles in the navigation bar when viewing the website on a mobile device?",
-      },
-      {
-        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-        name: "Promos",
-        new: 2,
-        total: 4,
-        view: "10.3k views",
-        title: "Shop your way",
-        description:
-          "Hello, Does anyone have a work around for locking the page titles in the navigation bar when viewing the website on a mobile device?",
-      },
-      {
-        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-        name: "John Leider",
-        total: 3,
-        view: "10.3k views",
-        title: "Fuel user engagement with seriously powerful in-app chats",
-        description:
-          "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
-      },
-      {
-        color: "red",
-        icon: "mdi-account-multiple",
-        name: "Social",
-        new: 1,
-        total: 3,
-        title: "Twitter",
-        view: "10.3k views",
-        description:
-          "Our in-app Chat SDK can help you develop the communication features your users need to connect and interact with each other anytime, anywhere.",
-      },
-    ],
+    messages: [],
   }),
+  methods: {
+    // computedDateFormattedMomentjs(date) {
+    //   return date ? moment(date).format("MMMM Do YYYY") : "";
+    // },
+    // computedDateFormattedDatefns(date) {
+    //   return date ? format(parseISO(date), "EEEE, MMMM do yyyy") : "";
+    // },
+  },
+  created() {
+    this.messages = JSON.parse(localStorage.getItem("topics"));
+    console.log(this.messages);
+  },
 };
 </script>
 <style scoped>
@@ -168,7 +132,4 @@ export default {
 .v-card--link:hover::before {
   opacity: 0;
 }
-/* .v-col >>> .card-box :hover {
-  background: #49a97233 0% 0% no-repeat padding-box;
-} */
 </style>
